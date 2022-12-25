@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GPT-3</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div id="loader-wrapper">
+      <div class="loader"></div>
+    </div>
+    <div class="container">
+      <!--   <div>
+        <h3>1) Write a title for this text</h3>
+        <h3>2) What is missing from this text</h3>
+        <h3>3) Write a summary of this text</h3>
+      </div>
+
+      <textarea id="prompt_str" type="text"><%= promptStr %> </textarea><br />
+-->
+
+<form action="fileupload"  method="post" enctype="multipart/form-data">
+
+  <input type="file" name="filetoupload">
+
+  <button type="submit">Generate</button>
+
+
+</form>
+<div id="thecontainer">
+
+</div>
+
+
+
+      <!--
+      <button onclick="onSendRequest();">Generate</button>
+      <div class="flex">
+        <h3 id="result1"></h3>
+        <h3 id="result2"></h3>
+        <h3 id="result3"></h3>
+      </div>
+      -->
+    </div>
+  </body>
+
+  <script>
+
+    var attex = `<%= articleText %>`;
+
+    if(attex != ""){
+      var i = 0;
+      var txt = attex; /* The text */
+      var speed = 5; /* The speed/duration of the effect in milliseconds */
+
+      setTimeout(typeWriter(attex), 1000);
+      document.getElementById('loader-wrapper').style.display = 'block';
+
+    }
+
+
+
+      function typeWriter(articleText) {
+        if (i < txt.length) {
+          document.getElementById("thecontainer").innerHTML += txt.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }else{
+          document.getElementById('loader-wrapper').style.display = 'none';
+
+        }
+    }
+  //  myVar = setTimeout(myFunction, 3000)
+
+  </script>
+  <script src="/javascripts/main.js"></script>
+</html>
