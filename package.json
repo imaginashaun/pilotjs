@@ -19,6 +19,7 @@
     "he": "^1.2.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "node-fetch": "^3.3.0",
     "node-stream-zip": "^1.15.0",
     "pdf-parse": "^1.1.1",
     "pdfreader": "^3.0.0",
