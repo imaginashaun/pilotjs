@@ -16,6 +16,7 @@
     "express": "~4.16.1",
     "file-system": "^2.2.2",
     "formidable": "^2.1.1",
+    "he": "^1.2.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "node-stream-zip": "^1.15.0",
