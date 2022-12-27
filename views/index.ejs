@@ -52,8 +52,21 @@
       var txt = attex; /* The text */
       var speed = 5; /* The speed/duration of the effect in milliseconds */
 
+      txt = decodeEnt(attex);
+      attex = decodeEnt(attex);
       setTimeout(typeWriter(attex), 1000);
       document.getElementById('loader-wrapper').style.display = 'block';
+
+    }
+
+
+    function decodeEnt(str) {
+
+      let txt = document.createElement("textarea");
+
+      txt.innerHTML = str;
+
+      return txt.value;
 
     }
 
