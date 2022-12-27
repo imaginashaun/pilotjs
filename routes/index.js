@@ -3,7 +3,7 @@ var fs = require('fs');
 const pdf = require('pdf-parse');
 const EventSource = require('eventsource');
 const he = require('he');
-import fetch from 'node-fetch';
+const fetch = require("node-fetch");
 
 //var {readFilesHandler} = require("../public/javascripts/filecontentReader");
 const formidable = require("formidable");
