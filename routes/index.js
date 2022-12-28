@@ -4,6 +4,7 @@ const pdf = require('pdf-parse');
 const EventSource = require('eventsource');
 const he = require('he');
 //import fetch from 'node-fetch';
+const axios = require('axios');
 
 //var {readFilesHandler} = require("../public/javascripts/filecontentReader");
 const formidable = require("formidable");
@@ -53,7 +54,7 @@ router.post('/fileupload', function (req, res, next) {
         console.log(data.text);
         console.log(data.text.length);
 
-        const params1 = {
+        const paramsnew = {
           method: 'post',
           contentType: 'application/json',
           headers: {
@@ -69,6 +70,19 @@ router.post('/fileupload', function (req, res, next) {
 //          https: {rejectUnauthorized: false}
         };
 
+        const params1 = {
+          method: 'post',
+          contentType: 'application/json',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${APIKEY}`,
+          },
+          body: {
+            model: 'text-davinci-003',
+            prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text: "+data.text,
+            max_tokens: 812,
+          },
+        };
 
 
 
@@ -109,7 +123,7 @@ router.post('/fileupload', function (req, res, next) {
 
             });
 */
-
+/*
          fetch(ENDPOINT, params1)
             .then((response) => response.json())
             .then((data) => {
@@ -118,7 +132,18 @@ router.post('/fileupload', function (req, res, next) {
               var parsedArticleText = he.decode(data.choices[0].text);
               res.render('index', {promptStr:prompt, articleText: parsedArticleText });
 
+            });*/
+
+
+         axios
+            .post(ENDPOINT, params1.body, { headers: params1.headers })
+            .then((response) => response.data)
+            .then((data) => {
+              console.log(data.choices[0].text);
+              var parsedArticleText = he.decode(data.choices[0].text);
+              res.render('index', {promptStr:prompt, articleText: parsedArticleText });
             });
+
 
 
       });
