@@ -1,5 +1,40 @@
+function runServer(params,apikey,articleText){
+  const APIKEY = apikey;
+  const ENDPOINT = 'https://api.openai.com/v1/completions';
 
+  const params2 = {
+    method: 'post',
+    contentType: 'application/json',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${APIKEY}`,
+    },
+    body: {
+      model: 'text-davinci-003',
+      //  prompt: stringPrompt !== ""?stringPrompt+" starting with the headline: ":"Write a 500 word news article from this text: "+data.text,
+      prompt: articleText,
+      max_tokens: 812,
+      stream: true,
+    },
+    responseType: 'stream'
+  };
 
+  console.log(params2);
+
+  console.log("params2 End");
+
+//  var params1 = JSON.parse(params);
+//  params1.prompt = articleText;
+ // console.log(params1);
+
+  console.log("Params End");
+
+ // console.log(params1.body);
+  console.log("Params Body");
+
+  var filecontent = "";
+
+}
 
 
 async function onSendRequestToo() {
@@ -34,7 +69,7 @@ async function onSendRequestToo() {
       Authorization: `Bearer ${APIKEY}`,
     },
     body: {
-      model: 'text-davinci-003',
+      model: 'text-davinci-002',
       prompt: prompt2,
       max_tokens: 256,
     },

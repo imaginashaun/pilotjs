@@ -3,7 +3,6 @@
   <head>
     <title>Pilot</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   </head>
   <body>
@@ -28,7 +27,7 @@
 
 
 </form>
-<div id="thecontainer">
+<div id="thecontainer" style="margin-left: 10%; margin-right: 10%;">
 
 </div>
 
@@ -45,14 +44,61 @@
     </div>
   </body>
 
+  <%=
+  doRunnerFunction((item)=>{
+
+
+   // console.log('OK Then:'+item);
+
+//    document.getElementById("thecontainer").innerHTML = item;
+
+  });
+ %>
+
   <script>
 
-    var attex = `<%= articleText %>`;
+    var serverEvents = new EventSource('http://localhost:8080/events');
+    serverEvents.addEventListener('message', function(event){
+      if(event.data !== "DONE") {
+        var dataJSON = JSON.parse(event.data)
+
+        console.log(dataJSON.choices[0].text);
+
+        if (dataJSON) {
+          document.getElementById("thecontainer").innerHTML += dataJSON.choices[0].text.replace(new RegExp('\r?\n','g'), '<br />');
+        }
+      }
+    });
+
+
+    function runner(){
+      alert("OK2!");
+    }
+  </script>
+  <script src="/javascripts/main.js"></script>
+  <script>
+
+    function runner(){
+      alert("OK!");
+    }
+  /*
+
+    console.log("AT: "+attex)
+
+    if(attex !== ""){
+
+
+      runServer(params1,apikey,attex);
+    }
+    */
+    //    alert(articleText);
+    /*
+
 
     if(attex != ""){
       var i = 0;
-      var txt = attex; /* The text */
-      var speed = 5; /* The speed/duration of the effect in milliseconds */
+      var txt = attex;
+      var speed = 5;
 
       txt = decodeEnt(attex);
       attex = decodeEnt(attex);
@@ -83,9 +129,8 @@
           document.getElementById('loader-wrapper').style.display = 'none';
 
         }
-    }
-  //  myVar = setTimeout(myFunction, 3000)
+    }*/
+    //  myVar = setTimeout(myFunction, 3000)
 
   </script>
-  <script src="/javascripts/main.js"></script>
 </html>
