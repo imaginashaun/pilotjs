@@ -57,7 +57,7 @@
 
   <script>
 
-    var serverEvents = new EventSource('http://localhost:3000/events');
+    var serverEvents = new EventSource('http://3.90.151.80:3001/events');
     serverEvents.addEventListener('message', function(event){
       if(event.data !== "DONE") {
         var dataJSON = JSON.parse(event.data)
