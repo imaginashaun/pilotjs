@@ -101,7 +101,7 @@ router.post('/fileupload', function (req, res, next) {
           },
           body: JSON.stringify({
             // stream:true,
-            model: 'text-davinci-002',
+            model: 'text-davinci-003',
             prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text: "+data.text,
             max_tokens: 812,
           }),
@@ -116,7 +116,7 @@ router.post('/fileupload', function (req, res, next) {
             Authorization: `Bearer ${APIKEY}`,
           },
           body: {
-            model: 'text-davinci-002',
+            model: 'text-davinci-003',
             prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text, starting with the headline: "+data.text,
             max_tokens: 812,
             stream:true
