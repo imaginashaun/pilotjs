@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-import  '../app.js';
-//import debug = from('debug')('main:server');
-var http = require('http');
+var app = require('../app');
+var debug = require('debug')('main:server');
+var https = require('https');
 require('dotenv').config();
 
 /**
@@ -20,7 +20,10 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = https.createServer({
+  key: fs.readFileSync('../server.key'),
+  cert: fs.readFileSync('../server.cert')
+},app);
 
 /**
  * Listen on provided port, on all network interfaces.
