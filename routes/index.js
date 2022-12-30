@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 const pdf = require('pdf-parse');
 const EventSource = require('eventsource');
-const http = require('http');
+const https = require('https');
 
 const he = require('he');
 //import fetch from 'node-fetch';
@@ -165,20 +165,18 @@ router.post('/fileupload', function (req, res, next) {
         axios
             .post(ENDPOINT, params1.body, params1)
             .then((response) => {
+              console.log("axios response ran")
 
               res.render('index', {promptStr:prompt, articleText: "", doRunnerFunction:doRunnerFunction });
-              const server = http.createServer((req, res) => {
+              const server = https.createServer((req, res) => {
                 if( req.url === '/events'){
+                  console.log("/events ran")
                   res.writeHead(200, {
                     'Content-Type': 'text/event-stream',
                     'Cache-Control': 'no-cache',
                     'Access-Control-Allow-Origin': '*'
                   });
 
-
-                  setTimeout(() => {
-                    res.write('data: some data\n\n');
-                  }, 1000);
 
                   response.data.on('data', chunk => {
                    // console.log(`Received chunk of data: ${chunk}`);
@@ -192,7 +190,10 @@ router.post('/fileupload', function (req, res, next) {
                   });
 
                 }
-              });
+              },
+                  {  key: fs.readFileSync('../server.key'),
+                    cert: fs.readFileSync('../server.cert')
+                  });
 
               server.on('error', function (e) {
                 // Handle your error here
