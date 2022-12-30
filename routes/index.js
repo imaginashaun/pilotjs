@@ -90,7 +90,7 @@ router.post('/fileupload', function (req, res, next) {
         // check https://mozilla.github.io/pdf.js/getting_started/
         console.log(data.version);
         // PDF text
-        
+
  */
         console.log(data.text);
         console.log(data.text.length);

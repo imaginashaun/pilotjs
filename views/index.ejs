@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pilot</title>
+    <title></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
 
   </head>
@@ -44,17 +44,6 @@
     </div>
   </body>
 
-  <%=
-  doRunnerFunction((item)=>{
-
-
-   // console.log('OK Then:'+item);
-
-//    document.getElementById("thecontainer").innerHTML = item;
-
-  });
- %>
-
   <script>
 
     var serverEvents = new EventSource('http://100.24.217.6:3001/events');
@@ -71,66 +60,7 @@
     });
 
 
-    function runner(){
-      alert("OK2!");
-    }
+
   </script>
   <script src="/javascripts/main.js"></script>
-  <script>
-
-    function runner(){
-      alert("OK!");
-    }
-  /*
-
-    console.log("AT: "+attex)
-
-    if(attex !== ""){
-
-
-      runServer(params1,apikey,attex);
-    }
-    */
-    //    alert(articleText);
-    /*
-
-
-    if(attex != ""){
-      var i = 0;
-      var txt = attex;
-      var speed = 5;
-
-      txt = decodeEnt(attex);
-      attex = decodeEnt(attex);
-      setTimeout(typeWriter(attex), 1000);
-      document.getElementById('loader-wrapper').style.display = 'block';
-
-    }
-
-
-    function decodeEnt(str) {
-
-      let txt = document.createElement("textarea");
-
-      txt.innerHTML = str;
-
-      return txt.value;
-
-    }
-
-
-
-      function typeWriter(articleText) {
-        if (i < txt.length) {
-          document.getElementById("thecontainer").innerHTML += txt.charAt(i);
-          i++;
-          setTimeout(typeWriter, speed);
-        }else{
-          document.getElementById('loader-wrapper').style.display = 'none';
-
-        }
-    }*/
-    //  myVar = setTimeout(myFunction, 3000)
-
-  </script>
 </html>
