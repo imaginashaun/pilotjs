@@ -169,7 +169,10 @@ router.post('/fileupload', function (req, res, next) {
 
               res.render('index', {promptStr:prompt, articleText: "", doRunnerFunction:doRunnerFunction });
               const server = https.createServer((req, res) => {
-                if( req.url === '/events'){
+                    console.log("request ran")
+
+
+                    if( req.url === '/events'){
                   console.log("/events ran")
                   res.writeHead(200, {
                     'Content-Type': 'text/event-stream',
