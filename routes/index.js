@@ -101,7 +101,7 @@ router.post('/fileupload', function (req, res, next) {
           },
           body: JSON.stringify({
             // stream:true,
-            model: 'text-davinci-003',
+            model: 'text-davinci-002',
             prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text: "+data.text,
             max_tokens: 812,
           }),
@@ -116,7 +116,7 @@ router.post('/fileupload', function (req, res, next) {
             Authorization: `Bearer ${APIKEY}`,
           },
           body: {
-            model: 'text-davinci-003',
+            model: 'text-davinci-002',
             prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text, starting with the headline: "+data.text,
             max_tokens: 812,
             stream:true
@@ -166,7 +166,7 @@ router.post('/fileupload', function (req, res, next) {
             .post(ENDPOINT, params1.body, params1)
             .then((response) => {
               console.log("axios response ran")
-                
+
               res.render('index', {promptStr:prompt, articleText: "", doRunnerFunction:doRunnerFunction });
               const server = https.createServer((req, res) => {
                     console.log("request ran")
