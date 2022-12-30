@@ -92,8 +92,8 @@ router.post('/fileupload', function (req, res, next) {
         // PDF text
 
  */
-        console.log(data.text);
-        console.log(data.text.length);
+   //     console.log(data.text);
+     //   console.log(data.text.length);
 
         const paramsnew = {
           method: 'post',
