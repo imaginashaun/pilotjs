@@ -102,7 +102,7 @@ router.post('/fileupload', function (req, res, next) {
           body: JSON.stringify({
             // stream:true,
             model: 'text-davinci-003',
-            prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text: "+data.text,
+            prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
             max_tokens: 812,
           }),
 //          https: {rejectUnauthorized: false}
@@ -117,7 +117,7 @@ router.post('/fileupload', function (req, res, next) {
           },
           body: {
             model: 'text-davinci-003',
-            prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text, starting with the headline: "+data.text,
+              prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
             max_tokens: 812,
             stream:true
           },
