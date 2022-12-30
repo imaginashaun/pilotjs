@@ -166,7 +166,7 @@ router.post('/fileupload', function (req, res, next) {
             .post(ENDPOINT, params1.body, params1)
             .then((response) => {
               console.log("axios response ran")
-
+                
               res.render('index', {promptStr:prompt, articleText: "", doRunnerFunction:doRunnerFunction });
               const server = https.createServer((req, res) => {
                     console.log("request ran")
@@ -190,6 +190,7 @@ router.post('/fileupload', function (req, res, next) {
                   // Set up a listener for the end event
                   response.data.on('end', () => {
                     console.log('Streaming completed');
+                      server.close();
                   });
 
                 }
