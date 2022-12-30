@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 const pdf = require('pdf-parse');
 const EventSource = require('eventsource');
-const https = require('https');
+const https = require('http');
 
 const he = require('he');
 //import fetch from 'node-fetch';
@@ -193,10 +193,7 @@ router.post('/fileupload', function (req, res, next) {
                   });
 
                 }
-              },
-                  {  key: fs.readFileSync('../server.key'),
-                    cert: fs.readFileSync('../server.cert')
-                  });
+              });
 
               server.on('error', function (e) {
                 // Handle your error here
