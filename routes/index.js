@@ -21,6 +21,7 @@ router.get('/', function (req, res, next) {
   res.render('index', { promptStr: prompt, articleText:"", doRunnerFunction:doRunnerFunction });
   stringPrompt = Buffer.from(req.query.ai, 'base64');
 
+  console.log(stringPrompt);
 
 });
 
@@ -102,7 +103,8 @@ router.post('/fileupload', function (req, res, next) {
           body: JSON.stringify({
             // stream:true,
             model: 'text-davinci-003',
-            prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
+            //prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
+              prompt: stringPrompt+": "+data.text,
             max_tokens: 812,
           }),
 //          https: {rejectUnauthorized: false}
@@ -117,7 +119,8 @@ router.post('/fileupload', function (req, res, next) {
           },
           body: {
             model: 'text-davinci-003',
-              prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
+              //prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
+              prompt: stringPrompt+": "+data.text,
             max_tokens: 812,
             stream:true
           },
@@ -206,7 +209,7 @@ router.post('/fileupload', function (req, res, next) {
               server.listen(3001, () => console.log(`server started on port ${PORT}`));
 
 
-              response.data
+           //   response.data
             })/*
             .then((data) => {
               console.log(data.choices[0].text);
