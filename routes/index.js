@@ -134,6 +134,8 @@ router.post('/fileupload', function (req, res, next) {
 
 
 
+
+
         /*
                  fetch(ENDPOINT, params1)
                     .then((response) =>
@@ -212,7 +214,22 @@ router.post('/fileupload', function (req, res, next) {
 
 
            //   response.data
-            })/*
+            }).catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+        });
+
+        /*
             .then((data) => {
               console.log(data.choices[0].text);
               var parsedArticleText = he.decode(data.choices[0].text);
