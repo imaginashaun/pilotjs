@@ -93,26 +93,13 @@ router.post('/fileupload', function (req, res, next) {
 
  */
    //     console.log(data.text);
-     //   console.log(data.text.length);
+        console.log("Dlength",data.text.length);
 
-        const paramsnew = {
-          method: 'post',
-          contentType: 'application/json',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${APIKEY}`,
-          },
-          body: JSON.stringify({
-            // stream:true,
-            model: 'text-davinci-003',
-            //prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
-              prompt: stringPrompt+": "+data.text,
-            max_tokens: 812,
-          }),
-//          https: {rejectUnauthorized: false}
-        };
 
-        console.log("Query IS: "+stringPrompt+": "+data.text);
+          var string = stringPrompt+": "+data.text;
+          string = string.replace(/[^a-zA-Z0-9 ]/g, '').replace(/(?:\r\n|\r|\n)/g, '<br>').trim();
+
+        console.log("Query IS: "+string);
 
         const params1 = {
           method: 'post',
@@ -123,20 +110,13 @@ router.post('/fileupload', function (req, res, next) {
           },
           body: {
             model: 'text-davinci-003',
-              //prompt: stringPrompt !== ""?stringPrompt+": "+data.text:"Write a 500 word news article from this text: "+data.text,
-              prompt: stringPrompt+": "+data.text,
+            //  prompt: stringPrompt !== ""?stringPrompt+": ":"Write a 500 word news article from this text: "+data.text,
+              prompt: string,
             max_tokens: 812,
             stream:true
           },
           responseType: 'stream'
         };
-
-
-
-
-
-
-
 
         /*
                  fetch(ENDPOINT, params1)
@@ -169,21 +149,20 @@ router.post('/fileupload', function (req, res, next) {
                       var parsedArticleText = he.decode(data.choices[0].text);
                       res.render('index', {promptStr:prompt, articleText: parsedArticleText });
                     });*/
+          res.render('index', {promptStr:prompt, articleText: "", doRunnerFunction:doRunnerFunction });
 
+          const server = https.createServer((s_req, s_res) => {
 
         axios
             .post(ENDPOINT, params1.body, params1)
             .then((response) => {
               console.log("axios response ran")
 
-              res.render('index', {promptStr:prompt, articleText: "", doRunnerFunction:doRunnerFunction });
-              const server = https.createServer((req, res) => {
                     console.log("request ran")
 
-
-                    if( req.url === '/events'){
+                    if( s_req.url === '/events'){
                   console.log("/events ran")
-                  res.writeHead(200, {
+                        s_res.writeHead(200, {
                     'Content-Type': 'text/event-stream',
                     'Cache-Control': 'no-cache',
                     'Access-Control-Allow-Origin': '*'
@@ -193,7 +172,7 @@ router.post('/fileupload', function (req, res, next) {
                   response.data.on('data', chunk => {
                    // console.log(`Received chunk of data: ${chunk}`);
                    // setVarLocal(chunk);
-                    res.write(chunk);
+                      s_res.write(chunk);
                   });
 
                   // Set up a listener for the end event
@@ -203,7 +182,7 @@ router.post('/fileupload', function (req, res, next) {
                   });
 
                 }
-              });
+
 
               server.on('error', function (e) {
                 // Handle your error here
@@ -211,16 +190,33 @@ router.post('/fileupload', function (req, res, next) {
                 console.log(e);
               });
 
-              var PORT = 3001;
-              server.listen(3001, () => console.log(`server started on port ${PORT}`));
+
 
 
            //   response.data
             }).catch(function (error) {
+           // console.log('Error B', error.response.body);
+           // console.log('Error T', error.response.text);
+           // console.log('Error M', error.response.data.message);
+            //console.log('Error', error.message);
+           // console.log(error.request.prompt);
+           // console.log(error.data);
+            if( s_req.url === '/events'){
+                console.log("/events ransz")
+                s_res.writeHead(200, {
+                    'Content-Type': 'text/event-stream',
+                    'Cache-Control': 'no-cache',
+                    'Access-Control-Allow-Origin': '*'
+                });
+            }
+            s_res.write("**alert**");
+            server.close();
+
             if (error.response) {
                 // Request made and server responded
-                console.log(error.response.data);
-                console.log(error.response.status);
+               // console.log(error.response.data);
+              // console.log(error.response.data.error.message);
+               console.log(error.response.status);
                 console.log(error.response.headers);
             } else if (error.request) {
                 // The request was made but no response was received
@@ -229,16 +225,10 @@ router.post('/fileupload', function (req, res, next) {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error', error.message);
             }
+                });
         });
-
-        /*
-            .then((data) => {
-              console.log(data.choices[0].text);
-              var parsedArticleText = he.decode(data.choices[0].text);
-              res.render('index', {promptStr:prompt, articleText: parsedArticleText, doRunnerFunction:doRunnerFunction });
-            })*/;
-
-
+          var PORT = 3001;
+          server.listen(3001, () => console.log(`server started on port ${PORT}`));
 
       });
     });

@@ -47,8 +47,17 @@
   <script>
 
     var serverEvents = new EventSource('http://100.24.217.6:3001/events');
+   // var serverEvents = new EventSource('http://localhost:3001/events');
     serverEvents.addEventListener('message', function(event){
-      if(event.data !== "DONE") {
+
+      console.log(event.data);
+
+      if(event.data === "**alert**"){
+
+        alert('Error. Material might be too long. Please check the length of your material and try again.');
+      }else if(event.data !== "DONE") {
+
+
         var dataJSON = JSON.parse(event.data)
 
         console.log(dataJSON.choices[0].text);
