@@ -224,7 +224,7 @@ router.post('/fileupload', function (req, res, next) {
       });
     });
 
-    console.log('Got file:', file);
+//    console.log('Got file:', file);
   }) .on('field', function(name, field) {
     console.log('Got a field:', name);
   })
