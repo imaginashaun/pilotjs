@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('main:server');
 var https = require('https');
+var fs = require('fs');
+
 require('dotenv').config();
 
 /**
