@@ -112,6 +112,8 @@ router.post('/fileupload', function (req, res, next) {
 //          https: {rejectUnauthorized: false}
         };
 
+        console.log("Query IS: "+stringPrompt+": "+data.text);
+
         const params1 = {
           method: 'post',
           contentType: 'application/json',
