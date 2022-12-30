@@ -194,7 +194,7 @@ router.post('/fileupload', function (req, res, next) {
                 }
               });
 
-              server.listen(3001, '127.0.0.1');
+              server.listen(3001, '127.0.0.1',() => console.log(`server started on port ${PORT}`));
 
 
               response.data
