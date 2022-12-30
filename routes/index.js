@@ -19,7 +19,7 @@ const prompt = `In response to the spike in COVID-19 cases in parts of the world
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { promptStr: prompt, articleText:"", doRunnerFunction:doRunnerFunction });
-  stringPrompt = Buffer.from(req.query.ai, 'base64');
+  stringPrompt = Buffer.from(req.query.ai, 'base64').toString();
 
   console.log(stringPrompt);
 
